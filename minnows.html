@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src = "angular.min.js"></script>
+		<title>Minnows</title>
+	</head>
+	<body ng-app = "app">
+	
+		<div ng-controller = "Controller1 as perk">
+			<select name="ageGroupsDisplayed" id= "ageGroupsDisplayed" ng-model = "perk.ageGroupChosen">
+				<option ng-repeat = "x in perk.ageGroups">{{x.ages}}</option>
+			</select>
+			<button ng-click = "perk.userSubmit()">Submit</button>
+			<select name="eventDisplayed" id= "eventDisplayed" ng-model = "perk.ageGroups.ages.eventName" 
+					ng-options = "x for x in perk.ageGroupEvents" ng-show = "perk.showEvents">
+				<!--<option ng-options = "x for x in perk.ageGroupEvents">{{x}}</option--!>
+			</select>
+		</div>
+	<script src = "minnows.js"></script>
+	</body>
+</html>
