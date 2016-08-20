@@ -10,11 +10,20 @@
 			<select name="ageGroupsDisplayed" id= "ageGroupsDisplayed" ng-model = "perk.ageGroupChosen">
 				<option ng-repeat = "x in perk.ageGroups">{{x.ages}}</option>
 			</select>
-			<button ng-click = "perk.userSubmit()">Submit</button>
-			<select name="eventDisplayed" id= "eventDisplayed" ng-model = "perk.ageGroups.ages.eventName" 
+			
+			<button ng-click = "perk.ageSubmit()">Submit</button>
+			
+			<select name="eventDisplayed" id= "eventDisplayed" ng-model = "perk.eventChosen" 
 					ng-options = "x for x in perk.ageGroupEvents" ng-show = "perk.showEvents">
 				<!--<option ng-options = "x for x in perk.ageGroupEvents">{{x}}</option--!>
 			</select>
+			
+			<button ng-click = "perk.eventSubmit()" ng-show = "perk.showEvents">Pick Event</button>
+				<select name="swimmersDisplayed" id= "swimmersDisplayed" ng-model = "perk.ageGroups.ages.eventName.swimmers"
+					ng-show = "perk.showSwimmers">
+				</select>
+	
+			
 		</div>
 	<script src = "minnows.js"></script>
 	</body>

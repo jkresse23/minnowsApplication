@@ -20,7 +20,8 @@ is this?!?
 It has something to do with the options in the drop-down menu actually being "strings" instead of the actual
 age groups themselves.  I think this issue may have to do with ageGroupsChosen.
 
-So now I have the event picker.  I just want to be able to choose the swimmer!
+So now I have the event picker.  Next, I want to create a new submit button to submit the event, which will
+reveal the swimmers in that event and the name of the event.
 */
 
 var app = angular.module("app", []);
@@ -28,77 +29,144 @@ var app = angular.module("app", []);
 app.factory("ageGroupsFactory", function() {
 
 	var ageGroupsFactory = [
-		{ages : "Boys (6-7)", eventName : ["25m Free", "50m Back", "200m IM"]},
-		{ages : "Girls (6-7)", eventName : ["25m Free", "50m Breast", "200m IM"]}
-	];
-
+		{ages : "Boys (6-7)", 
+		event : 
+				[
+					{eventName : "25m Free", swimmers: 
+												[
+													{swimmerName: "John"}, 
+													{swimmerName: "Lori"}, 
+													{swimmerName: "Ryan"}
+												]
+						},
+					{eventName: "50m Back", swimmers: 
+												[
+													{swimmerName: "Alicia"},
+													{swimmerName: "Laura"},
+													{swimmerName: "Ingrid"}
+												]
+						}, 
+					{eventName: "200m IM", swimmers: [
+														{swimmerName: "Leigh"}, 
+														{swimmerName: "Leopold"}, 
+														{swimmerName: "Henry"}
+													 ]
+					}
+				]
+			},
+		{ages : "Girls (6-7)", 
+		event : 
+				[
+					{eventName: "25m Free", swimmers: [
+														{swimmerName: "Alan"}, 
+														{swimmerName: "Jennifer"}, 
+														{swimmerName: "Eric"}
+													  ]
+					}, 
+					{eventName: "50m Breast", swimmers: [
+														  {swimmerName: "Margaret"},
+					 									  {swimmerName: "Morgan"}, 
+					 									  {swimmerName: "Cassie"}
+					 									]
+					 }, 
+					{eventName: "200m IM", swimmers: [
+														{swimmerName: "James"}, 
+														{swimmerName: "Awni"}, 
+														{swimmerName: "Will"}
+													]
+					}
+				]
+			}
+		];
+		
 	return ageGroupsFactory;
 	});
 
-app.controller("Controller1", function (ageGroupsFactory) {
+app.controller("Controller1", function (ageGroupsFactory) {	
 
-	//this.ageGroups = [
-		//{ages : "Boys (6-7)", eventName : ["25m Free", "50m Back", "200m IM"]},
-	///	{ages : "Girls (6-7)", eventName : ["25m Free", "50m Breast", "200m IM"]}
-	//];
-	
 	this.ageGroups = ageGroupsFactory;
+	
+	console.log(this.ageGroups);
+	
 
-	this.userSubmit = function() {
+	this.ageSubmit = function() {
 	
 		alert("Hello");
-		
-		console.log(this.ageGroups);
 		
 		this.showEvents = true;
 		
 		console.log(this.ageGroupChosen);
 		
+		this.ageGroupEvents = [];
+		
 		for (this.i = 0; this.i < this.ageGroups.length; this.i++) {
-		
-			if (this.ageGroupChosen== this.ageGroups[this.i].ages) {
-				
-				this.ageGroupEvents = this.ageGroups[this.i].eventName;
 			
-				console.log(this.ageGroupEvents);
-				
-				return "Match";
-				
-				} else {
-				
-				console.log("No Match!");
+			for (this.j = 0; this.j < this.ageGroups[this.i].event.length; this.j++) {
 		
-				};
-				
-		
-			};
-	
-		
-		
-		//this.findRightAgeGroup = function (ageGroup) {
+				if (this.ageGroupChosen == this.ageGroups[this.i].ages) {
+					
+					this.ageGroupEvents.push(this.ageGroups[this.i].event[this.j].eventName);
+					
+					console.log(this.ageGroupEvents);
+					
+					
+					//this.ageGroupEvents = this.ageGroups[this.i].this.event.eventName[this.j];
 			
-		//	return ageGroup = this.ageGroupChosen.ages;
-			
-		//	};
-		
-		//this.eventList = this.ageGroups.filter(this.findRightAgeGroup);
-		
-		//console.log(this.eventList);
-		
-		
-		//this.ageGroupEvents = this.ageGroups.filter(function(obj) {
-  			
-  		//	return obj.ages == this.ageGroupChosen;
-  		
-  	//	});
-  		
-  	//	console.log(this.ageGroupEvents);
-
-		
-		
+					//console.log(this.ageGroupEvents);
+				
+					//console.log("Match");
+					
+					
+					} else {
+				
+					console.log("No Match!");
+					
+					};
+					
+				}
+				
+			};	
 		
 	}
+
+	/*
+	
+	this.eventSubmit= function () {
 		
+		//ng-model for event picker: ageGroups.ages.eventName
+		this.showSwimmers = true;
+		
+		console.log(this.eventChosen);
+		
+		//console.log(this.ageGroupChosen.this.eventName);
+		
+		for (this.i = 0; this.i < this.ageGroupChosen.eventName.length; this.i++) {
+		
+			if (this.eventChosen== this.ageGroups.this.ageGroupChosen.eventName[this.i]) {
+				
+				this.eventSwimmers = this.ageGroups.this.ageGroupChosen.this.eventName.swimmers[this.i];
+				
+				console.log(this.eventSwimmers);
+		
+		//		this.ageGroupEvents = this.ageGroups[this.i].eventName;
+			
+		//		console.log(this.ageGroupEvents);
+				
+		//		return "Match";
+				
+		//		} else {
+				
+				//console.log("No Match!");
+		//
+		//		};
+					
+		
+			}
+	
+		};
+	
+	};	
+	*/
 	
 });
 		
