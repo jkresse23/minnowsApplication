@@ -145,7 +145,8 @@ app.controller("Controller1", function (ageGroupsFactory) {
 		
 					console.log(this.ageGroups[this.i].event[this.j].swimmers);
 					
-					if (this.eventChosen == this.ageGroups[this.i].event[this.j].eventName) {
+					if ((this.ageGroupChosen == this.ageGroups[this.i].ages) && 
+						(this.eventChosen == this.ageGroups[this.i].event[this.j].eventName)) {
 					
 						console.log("Geronimo");
 						
