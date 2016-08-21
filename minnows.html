@@ -7,21 +7,23 @@
 	<body ng-app = "app">
 	
 		<div ng-controller = "Controller1 as perk">
-			<select name="ageGroupsDisplayed" id= "ageGroupsDisplayed" ng-model = "perk.ageGroupChosen">
+			<p>Choose the swimmer's age group:</p><select name="ageGroupsDisplayed" id= "ageGroupsDisplayed" ng-model = "perk.ageGroupChosen">
 				<option ng-repeat = "x in perk.ageGroups">{{x.ages}}</option>
 			</select>
-			
-			<button ng-click = "perk.ageSubmit()">Submit</button>
-			
-			<select name="eventDisplayed" id= "eventDisplayed" ng-model = "perk.eventChosen" 
+			<button ng-click = "perk.ageSubmit()">Submit Age Group</button>
+			<br>
+			<p ng-show = "perk.showEvents">Choose the swimmer's event:</p><select name="eventDisplayed" id= "eventDisplayed" ng-model = "perk.eventChosen" 
 					ng-options = "x for x in perk.ageGroupEvents" ng-show = "perk.showEvents">
 				<!--<option ng-options = "x for x in perk.ageGroupEvents">{{x}}</option--!>
 			</select>
 			
-			<button ng-click = "perk.eventSubmit()" ng-show = "perk.showEvents">Pick Event</button>
-				<select name="swimmersDisplayed" id= "swimmersDisplayed" ng-model = "perk.ageGroups.ages.eventName.swimmers"
-					ng-show = "perk.showSwimmers">
+			<button ng-click = "perk.eventSubmit()" ng-show = "perk.showEvents">Submit Event</button>
+			<br>
+			<p ng-show = "perk.showSwimmers">Choose your minnow:</p>
+				<select name="swimmersDisplayed" id= "swimmersDisplayed" ng-model = "perk.swimmerChosen"
+					ng-options = "x for x in perk.eventSwimmers" ng-show = "perk.showSwimmers">
 				</select>
+				<button ng-click = "perk.swimmerSubmit()" ng-show = "perk.showSwimmers">Select Swimmer</button>
 	
 			
 		</div>

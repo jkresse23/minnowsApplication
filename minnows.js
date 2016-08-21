@@ -66,7 +66,8 @@ app.factory("ageGroupsFactory", function() {
 					{eventName: "50m Breast", swimmers: [
 														  {swimmerName: "Margaret"},
 					 									  {swimmerName: "Morgan"}, 
-					 									  {swimmerName: "Cassie"}
+					 									  {swimmerName: "Cassie"},
+					 									  {swimmerName: "Vianca"}
 					 									]
 					 }, 
 					{eventName: "200m IM", swimmers: [
@@ -129,44 +130,44 @@ app.controller("Controller1", function (ageGroupsFactory) {
 		
 	}
 
-	/*
 	
 	this.eventSubmit= function () {
 		
-		//ng-model for event picker: ageGroups.ages.eventName
 		this.showSwimmers = true;
 		
-		console.log(this.eventChosen);
+		this.eventSwimmers = [];
 		
-		//console.log(this.ageGroupChosen.this.eventName);
-		
-		for (this.i = 0; this.i < this.ageGroupChosen.eventName.length; this.i++) {
-		
-			if (this.eventChosen== this.ageGroups.this.ageGroupChosen.eventName[this.i]) {
-				
-				this.eventSwimmers = this.ageGroups.this.ageGroupChosen.this.eventName.swimmers[this.i];
-				
-				console.log(this.eventSwimmers);
-		
-		//		this.ageGroupEvents = this.ageGroups[this.i].eventName;
+		for (this.i = 0; this.i < this.ageGroups.length; this.i++) {
 			
-		//		console.log(this.ageGroupEvents);
-				
-		//		return "Match";
-				
-		//		} else {
-				
-				//console.log("No Match!");
-		//
-		//		};
-					
+			for (this.j = 0; this.j < this.ageGroups[this.i].event.length; this.j++) {
+			
+				for (this.k = 0; this.k < this.ageGroups[this.i].event[this.j].swimmers.length; this.k++) {
 		
+					console.log(this.ageGroups[this.i].event[this.j].swimmers);
+					
+					if (this.eventChosen == this.ageGroups[this.i].event[this.j].eventName) {
+					
+						console.log("Geronimo");
+						
+						this.eventSwimmers.push(this.ageGroups[this.i].event[this.j].swimmers[this.k].swimmerName);
+						
+						console.log(this.eventSwimmers);
+					
+					
+						} else {
+				
+						console.log("No Match!");
+					
+						};
+				
+					}
+		
+				}
+			
 			}
+				
+		};	
 	
-		};
-	
-	};	
-	*/
 	
 });
 		
