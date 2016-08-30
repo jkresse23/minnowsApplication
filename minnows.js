@@ -2,19 +2,19 @@
 to largest:
 
 Season:
-	--Meets
-		--Teams
-			--Individual swimmers
-				--Individual Events
-					--Times from Individual Swimmers
+--Meets
+--Teams
+--Individual swimmers
+--Individual Events
+--Times from Individual Swimmers
 
-The MVP of this product would likely be associating individual swimmers and their times 
-with events  
+The MVP of this product would likely be associating individual swimmers and their times
+with events
 
 controller is working.  I can get the events drop-down to show up upon submit, but I can't yet
-get the events associated with that object to load.  
+get the events associated with that object to load.
 
-I can get the events to show up the drop-down menu, but I can't select them from the drop-down menu!  Why 
+I can get the events to show up the drop-down menu, but I can't select them from the drop-down menu!  Why
 is this?!?
 
 It has something to do with the options in the drop-down menu actually being "strings" instead of the actual
@@ -24,151 +24,187 @@ So now I have the event picker.  Next, I want to create a new submit button to s
 reveal the swimmers in that event and the name of the event.
 */
 
-var app = angular.module("app", []);
+var app = angular.module("app", ['mgcrea.ngStrap']);
 
 app.factory("ageGroupsFactory", function() {
 
 	var ageGroupsFactory = [
-		{ages : "Boys (6-7)", 
-		event : 
-				[
-					{eventName : "25m Free", swimmers: 
-												[
-													{swimmerName: "John"}, 
-													{swimmerName: "Lori"}, 
-													{swimmerName: "Ryan"}
-												]
-						},
-					{eventName: "50m Back", swimmers: 
-												[
-													{swimmerName: "Alicia"},
-													{swimmerName: "Laura"},
-													{swimmerName: "Ingrid"}
-												]
-						}, 
-					{eventName: "200m IM", swimmers: [
-														{swimmerName: "Leigh"}, 
-														{swimmerName: "Leopold"}, 
-														{swimmerName: "Henry"}
-													 ]
-					}
-				]
-			},
-		{ages : "Girls (6-7)", 
-		event : 
-				[
-					{eventName: "25m Free", swimmers: [
-														{swimmerName: "Alan"}, 
-														{swimmerName: "Jennifer"}, 
-														{swimmerName: "Eric"}
-													  ]
-					}, 
-					{eventName: "50m Breast", swimmers: [
-														  {swimmerName: "Margaret"},
-					 									  {swimmerName: "Morgan"}, 
-					 									  {swimmerName: "Cassie"},
-					 									  {swimmerName: "Vianca"}
-					 									]
-					 }, 
-					{eventName: "200m IM", swimmers: [
-														{swimmerName: "James"}, 
-														{swimmerName: "Awni"}, 
-														{swimmerName: "Will"}
-													]
-					}
-				]
-			}
-		];
-		
-	return ageGroupsFactory;
-	});
+		{ages : "Boys (6-7)",
+		event :
+		[
+			{eventName : "25m Free", swimmers:
+			[
+				{swimmerName: "John"},
+				{swimmerName: "Lori"},
+				{swimmerName: "Ryan"}
+			]
+		},
+		{eventName: "50m Back", swimmers:
+		[
+			{swimmerName: "Alicia"},
+			{swimmerName: "Laura"},
+			{swimmerName: "Ingrid"}
+		]
+	},
+	{eventName: "200m IM", swimmers: [
+		{swimmerName: "Leigh"},
+		{swimmerName: "Leopold"},
+		{swimmerName: "Henry"}
+	]
+}
+]
+},
+{ages : "Girls (6-7)",
+event :
+[
+	{eventName: "25m Free", swimmers: [
+		{swimmerName: "Alan"},
+		{swimmerName: "Jennifer"},
+		{swimmerName: "Eric"}
+	]
+},
+{eventName: "50m Breast", swimmers: [
+	{swimmerName: "Margaret"},
+	{swimmerName: "Morgan"},
+	{swimmerName: "Cassie"},
+	{swimmerName: "Vianca"}
+]
+},
+{eventName: "200m IM", swimmers: [
+	{swimmerName: "James"},
+	{swimmerName: "Awni"},
+	{swimmerName: "Will"}
+]
+}
+]
+}
+];
 
-app.controller("Controller1", function (ageGroupsFactory) {	
+return ageGroupsFactory;
+});
+
+app.controller("Controller1", ["$interval", "ageGroupsFactory", "$scope", function ($interval, ageGroupsFactory, $scope) {
 
 	this.ageGroups = ageGroupsFactory;
-	
+
 	console.log(this.ageGroups);
-	
+
 
 	this.ageSubmit = function() {
-	
-		alert("Hello");
-		
+
 		this.showEvents = true;
-		
+
 		console.log(this.ageGroupChosen);
-		
+
 		this.ageGroupEvents = [];
-		
-		for (this.i = 0; this.i < this.ageGroups.length; this.i++) {
-			
-			for (this.j = 0; this.j < this.ageGroups[this.i].event.length; this.j++) {
-		
-				if (this.ageGroupChosen == this.ageGroups[this.i].ages) {
-					
-					this.ageGroupEvents.push(this.ageGroups[this.i].event[this.j].eventName);
-					
-					console.log(this.ageGroupEvents);
-					
-					
-					//this.ageGroupEvents = this.ageGroups[this.i].this.event.eventName[this.j];
-			
-					//console.log(this.ageGroupEvents);
-				
-					//console.log("Match");
-					
-					
-					} else {
-				
-					console.log("No Match!");
-					
-					};
-					
-				}
-				
-			};	
-		
+
+		var self = this;
+
+		this.ageGroupPicked = this.ageGroups.filter(function (group) {
+
+			return group.ages === self.ageGroupChosen;
+
+		});
+
+		console.log(this.ageGroupPicked);
+
+
+		this.ageGroupEvents = this.ageGroupPicked[0].event.map(function (event) {
+
+			return event.eventName;
+
+		});
+
 	}
 
-	
-	this.eventSubmit= function () {
-		
+
+	this.eventSubmit = function (eventChosen) {
+
+		var self = this;
+
+		this.eventChosenArray = this.ageGroupPicked[0].event.filter(function (eventPicked) {
+
+			return eventPicked.eventName === self.eventChosen;
+
+		});
+
+		console.log(this.eventChosenArray);
+
+		this.eventSwimmers = this.eventChosenArray[0].swimmers.map(function (swimmer) {
+
+			return swimmer.swimmerName;
+
+		});
+
+		console.log(this.eventSwimmers);
+
+
 		this.showSwimmers = true;
-		
-		this.eventSwimmers = [];
-		
-		for (this.i = 0; this.i < this.ageGroups.length; this.i++) {
-			
-			for (this.j = 0; this.j < this.ageGroups[this.i].event.length; this.j++) {
-			
-				for (this.k = 0; this.k < this.ageGroups[this.i].event[this.j].swimmers.length; this.k++) {
-		
-					console.log(this.ageGroups[this.i].event[this.j].swimmers);
-					
-					if ((this.ageGroupChosen == this.ageGroups[this.i].ages) && 
-						(this.eventChosen == this.ageGroups[this.i].event[this.j].eventName)) {
-					
-						console.log("Geronimo");
-						
-						this.eventSwimmers.push(this.ageGroups[this.i].event[this.j].swimmers[this.k].swimmerName);
-						
-						console.log(this.eventSwimmers);
-					
-					
-						} else {
-				
-						console.log("No Match!");
-					
-						};
-				
-					}
-		
-				}
-			
-			}
-				
-		};	
-	
-	
-});
-		
+
+		this.swimmerSubmit = function (swimmerChosen) {
+
+			this.showTimer = true;
+
+			this.displayedTimer = 0;
+		};
+
+	};
+
+	this.startTimer = function () {
+
+		var self = this;
+
+		this.startClock = $interval(function () {
+
+			self.displayedTimer = self.displayedTimer + 1;
+
+			console.log(self.displayedTimer);
+
+		}, 1000);
+
+	};
+
+	this.stopTimer = function() {
+
+		$interval.cancel(this.startClock);
+
+		this.showSubmit = true;
+
+	}
+
+	this.submitTime = function () {
+
+		console.log(this.swimmerChosen);
+
+		var self = this;
+
+		this.chosenSwimmer = this.eventChosenArray[0].swimmers.filter(function (swimmerPicked) {
+
+			return swimmerPicked.swimmerName === self.swimmerChosen;
+
+		});
+
+		this.chosenSwimmer[0].swimmersTime = this.displayedTimer;
+
+		console.log(this.chosenSwimmer);
+
+	};
+
+
+
+
+	//I think the next step here is to isolate the swimmer by filtering
+	//an array of the swimmers in the event.  Then adding a property of time
+	//to that event and setting it equal to displayedTimer.
+
+
+
+	//console.log(this.displayedTimer);
+
+	//I need to save this displayed time as a time for the swimmer in this event.
+	//this.swimmerChosen.this.eventTime = this.displayedTimer;
+
+	//console.log(this.swimmerChosen.this.eventTime);
+
+
+}]);
