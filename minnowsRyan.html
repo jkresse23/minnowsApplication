@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+	<!--		<script src = "angular.min.js"></script>-->
+	<script type="text/javascript" src="angular-strap.min.js"></script>
+	<script type="text/javascript" src="angular-strap.tpl.min.js"></script>
+	<script type="text/javascript" src="angular-animate.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="angular-motion.min.css">
+	<link rel="stylesheet" href="minnows.css">
+	<title>Minnows</title>
+</head>
+<body ng-app = "app">
+	<div class= "container">
+		<div class = "row">
+			<h1 class= "col-lg-1">Minnows</h1>
+		</div>
+		<div ng-controller = "Controller1 as perk">
+			<div class = "row">
+				<div class = "col-sm-12">
+					<p>Choose the swimmer's age group:</p>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-2 col-xs-12">
+					<select
+					name="ageGroupsDisplayed"
+					id= "ageGroupsDisplayed"
+					ng-options='group as group.ages for group in perk.ageGroups'
+					ng-model = "perk.ageGroupChosen">
+				</select>
+			</div>
+			<div class = "col-sm-1">
+				<button type="button" class= "btn btn-primary" ng-click = "perk.ageSubmit()">Submit Age Group</button>
+			</div>
+		</div>
+		<br>
+		<div class = "row">
+			<div class = "col-sm-3">
+				<p ng-show = "perk.showEvents">Choose the swimmer's event:</p>
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col-sm-1">
+				<select  bs-dropdown = "dropdown" name="eventDisplayed" id= "eventDisplayed" ng-model = "perk.eventChosen"
+				ng-options = "event as event.eventName for event in perk.ageGroupChosen.event" ng-show = "perk.showEvents">
+			</select>
+		</div>
+		<div class = "col-sm-1">
+			<button type="button" class= "btn btn-primary" ng-click = "perk.eventSubmit(perk.eventChosen)" ng-show = "perk.showEvents">Submit Event</button>
+		</div>
+	</div>
+	<br>
+	<div class = "row">
+		<div class = "col-sm-12">
+			<p ng-show = "perk.showSwimmers">Choose your minnow:</p>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-1">
+			<select name="swimmersDisplayed" id= "swimmersDisplayed" ng-model = "perk.swimmerChosen"
+			ng-options = "swimmer as swimmer.swimmerName for swimmer in perk.eventChosen.swimmers" ng-show = "perk.showSwimmers">
+		</select>
+	</div>
+	<div class = "col-sm-1">
+		<button type="button" class= "btn btn-primary" ng-click = "perk.swimmerSubmit()" ng-show = "perk.showSwimmers">Select Swimmer</button>
+	</div>
+</div>
+<button ng-click = "perk.startTimer()" ng-show = "perk.showTimer">Start</button>
+{{perk.displayedTimer}}
+<br>
+<button ng-click = "perk.stopTimer()" ng-show = "perk.showTimer">Stop</button>
+<br>
+<button ng-click = "perk.submitTime()" ng-show = "perk.showSubmit">Submit Time</button>
+</div>
+</div>
+<br>
+
+
+</div>
+<script src = "minnowsRyan.js"></script>
+<script src = "stopWatch.js"></script>
+</body>
+</html>
