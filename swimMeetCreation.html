@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="angular.min.js"></script>
+</head>
+<body ng-app = "app">
+  <h1>Create a Meet</h1>
+  <div ng-controller = "pickTeams as teamCtrl">
+    <form ng-submit ="teamCtrl.meetSubmit()">
+      <select ng-options = "location as location.pool for location in teamCtrl.poolsAvailable" ng-model = "teamCtrl.locationChosen">
+      </select>
+      <br>
+      <br>
+      {{teamCtrl.test}}
+      <label ng-repeat = "team in teamCtrl.teamsAvailable">
+        <input type = "checkbox" checklist-model="teamCtrl.teamsChosen.teams" checklist-value = "team"> {{team.teamName}}
+      </label>
+      <br>
+      <h3>Add a note about the meet:</h3>
+      <textarea ng-model = "teamCtrl.meetMessage"></textarea>
+      <br>
+      <input type = "submit"></input>
+    </form>
+
+
+  </div>
+  <script src= "checkboxinjection.js"></script>
+  <script src = "swimMeetCreation.js"></script>
+</body>
+</html>
